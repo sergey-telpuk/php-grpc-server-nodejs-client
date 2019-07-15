@@ -1,0 +1,32 @@
+version: '3.3'
+
+services:
+
+    grpc_php_server:
+        build:
+            context: ./containers/php
+            dockerfile: php.docker
+        container_name: grpc_php_server
+        working_dir: /app
+        command: ./rr-grpc serve -v -d
+        volumes:
+            - ./src/php:/app
+
+    grpc_php_protoc:
+        image:  grpc/php
+        container_name: grpc_protoc
+        working_dir: /app
+        volumes:
+            - ./src/php:/app
+
+    client_nodejs:
+        image: node:latest
+        container_name: client_nodejs
+        command: node ./client.js
+        working_dir: /app
+        links:
+          - grpc_php_server
+        depends_on:
+          - grpc_php_server
+        volumes:
+            - ./src/nodejs:/app

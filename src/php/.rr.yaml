@@ -1,0 +1,8 @@
+grpc:
+  listen: "tcp://:3000"
+  proto: "./proto/contrived.proto"
+  workers:
+    command: "php worker.php"
+    pool:
+      numWorkers: 1
+      maxJobs:    1

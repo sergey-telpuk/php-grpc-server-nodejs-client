@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package service;
+
+service ContrivedService {
+    rpc ContrivedMethod (ContrivedMessageRequest) returns (ContrivedMessageResponse) {
+    }
+}
+
+message ContrivedMessageRequest {
+    string body = 1;
+}
+
+message ContrivedMessageResponse {
+    string body = 1;
+}
